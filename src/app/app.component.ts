@@ -20,6 +20,7 @@ import 'prismjs/themes/prism-tomorrow.css'; // Or any other theme
 })
 export class AppComponent {
   title = 'ngEditor';
+  paragraphColor = 'black';
 
   content: string = '';
 
@@ -63,11 +64,16 @@ export class AppComponent {
     }
   }
 
-  insertColoredParagraph(color: string) {
+  _paragraphColor(event:Event){
+    const color = (event.target as HTMLInputElement).value;
+    this.paragraphColor = color;
+  }
+
+  insertColoredParagraph() {
     const selection:any = window.getSelection();
     if (selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
-      const coloredParagraph = `<div style="background-color: ${color}; padding: 10px; margin: 5px 0;">This is a colored paragraph.</div>`;
+      const coloredParagraph = `<div style="background-color: ${this.paragraphColor}; border-radius: 5px; padding: 10px; margin: 5px 0;">This is a colored paragraph.</div>`;
   
       const div = document.createElement('div');
       div.innerHTML = coloredParagraph;

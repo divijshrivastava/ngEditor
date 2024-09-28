@@ -18,14 +18,13 @@
       title="Change Text Color"
     />
     <button (click)="insertCodeBlock()" title="Insert Code Block">Code</button>
-    <button (click)="insertColoredParagraph('red')">
-      Insert Red Paragraph
-    </button>
-    <button (click)="insertColoredParagraph('green')">
-      Insert Green Paragraph
-    </button>
-    <button (click)="insertColoredParagraph('blue')">
-      Insert Blue Paragraph
+    <input
+      type="color"
+      (input)="_paragraphColor($event)"
+      title="Change Text Color"
+    />
+    <button (click)="insertColoredParagraph()">
+    Para
     </button>
   </div>
 
@@ -42,8 +41,4 @@
 <div class="output-container">
   <h3>Editor Output:</h3>
   <div [innerHTML]="content"></div>
-</div>
-
-<div>
-  <pre><code class="language-java">public static void main</code></pre>
 </div>

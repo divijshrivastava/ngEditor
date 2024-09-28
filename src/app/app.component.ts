@@ -9,6 +9,7 @@ import 'prismjs/components/prism-java.min.js'; // Import Java syntax highlightin
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/themes/prism-tomorrow.css'; // Or any other theme
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
 @Component({
@@ -22,7 +23,19 @@ export class AppComponent {
   title = 'ngEditor';
   paragraphColor = 'black';
 
-  content: string = '';
+  @ViewChild('result') result: ElementRef | undefined;
+  @ViewChild('editorContent') editorContent!: ElementRef ;
+
+
+  constructor(private sanitizer: DomSanitizer){
+ }
+
+ngAfterViewInit(){
+    let content = '';
+    const safeHtml = this.sanitizer.bypassSecurityTrustHtml(content);
+    this.editorContent.nativeElement.innerHTML = safeHtml as string;
+ 
+}
 
   execCommand(command: string) {
     document.execCommand(command, false, '');
@@ -30,7 +43,8 @@ export class AppComponent {
 
   updateContent() {
     // Update content whenever there's an input in the contenteditable div
-    this.content = document.querySelector('.editor-content')!.innerHTML;
+    let c = document.querySelector('.editor-content')!.innerHTML;
+    this.result!.nativeElement.innerHTML =this.sanitizer.bypassSecurityTrustHtml(c); 
   }
 
 
@@ -71,7 +85,9 @@ export class AppComponent {
 
   insertColoredParagraph() {
     const selection:any = window.getSelection();
-    if (selection.rangeCount > 0) {
+    const editor = document.querySelector('.editor-content') as HTMLElement;
+
+    if (selection.rangeCount > 0 && this.isSelectionInEditable(selection, editor)) {
       const range = selection.getRangeAt(0);
       const coloredParagraph = `<div style="background-color: ${this.paragraphColor}; border-radius: 5px; padding: 10px; margin: 5px 0;">This is a colored paragraph.</div>`;
   
@@ -86,5 +102,10 @@ export class AppComponent {
       range.deleteContents();
       range.insertNode(frag);
     }
+  }
+
+  isSelectionInEditable(selection: Selection, editableElement: HTMLElement): boolean {
+    const selectedRange = selection.getRangeAt(0);
+    return editableElement.contains(selectedRange.startContainer) && editableElement.contains(selectedRange.endContainer);
   }
 }

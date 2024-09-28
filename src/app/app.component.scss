@@ -41,3 +41,23 @@
   code {
     font-family: 'Courier New', Courier, monospace;
   }
+
+  .color-picker {
+    display: inline-block; /* Make it inline */
+    width: 25px;          /* Set a width */
+    height: 25px;         /* Set a height */
+    border-radius: 50%;   /* Make it circular */
+    overflow: hidden;     /* Hide overflow */
+    border: 2px solid #ccc; /* Optional: add a border */
+}
+
+input[type="color"] {
+    width: 100%;          /* Take full width */
+    height: 100%;         /* Take full height */
+    opacity: 0;           /* Hide the default input */
+    cursor: pointer;      /* Change cursor to pointer */
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;         /* Remove border */
+}

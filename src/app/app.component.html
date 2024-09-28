@@ -1,5 +1,4 @@
 <div class="editor-container">
-  <!-- Toolbar -->
   <div class="toolbar">
     <button (click)="execCommand('bold')" title="Bold"><b>B</b></button>
     <button (click)="execCommand('italic')" title="Italic"><i>I</i></button>
@@ -12,27 +11,28 @@
     <button (click)="execCommand('insertUnorderedList')" title="Unordered List">
       UL
     </button>
-    <input
-      type="color"
-      (input)="changeTextColor($event)"
-      title="Change Text Color"
-    />
+    <div class="color-picker">
+      <input
+        type="color"
+        (input)="changeTextColor($event)"
+        title="Change Text Color"
+      />
+    </div>
     <button (click)="insertCodeBlock()" title="Insert Code Block">Code</button>
-    <input
-      type="color"
-      (input)="_paragraphColor($event)"
-      title="Change Text Color"
-    />
-    <button (click)="insertColoredParagraph()">
-    Para
-    </button>
+    <div class="color-picker">
+      <input
+        type="color"
+        (input)="_paragraphColor($event)"
+        title="Change Text Color"
+      />
+    </div>
+    <button (click)="insertColoredParagraph()">Para</button>
   </div>
 
   <!-- Contenteditable area -->
-  <div
+  <div #editorContent
     class="editor-content"
     contenteditable="true"
-    [(innerHTML)]="content"
   ></div>
 </div>
 <button (click)="updateContent()">Render</button>
@@ -40,5 +40,5 @@
 <!-- Display the output -->
 <div class="output-container">
   <h3>Editor Output:</h3>
-  <div [innerHTML]="content"></div>
+  <div #result></div>
 </div>

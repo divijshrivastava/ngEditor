@@ -1,0 +1,43 @@
+.editor-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display:block;
+  }
+  
+  .toolbar {
+    margin-bottom: 10px;
+    button {
+      background-color: #f5f5f5;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      margin-right: 5px;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #eaeaea;
+    }
+  }
+  
+  .editor-content {
+    min-height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    display: block;
+    caret-color: red;
+  }
+
+  pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    overflow: auto;
+  }
+  
+  code {
+    font-family: 'Courier New', Courier, monospace;
+  }
